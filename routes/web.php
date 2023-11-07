@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', 'AuthController@index');
+Route::post('/login', 'AuthController@login')->name('login');
+Route::get('/logout', 'AuthController@logout')->name('logout');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+Route::resource('integration', 'IntegrationController');
