@@ -2,9 +2,9 @@
 @section('content')
 
         <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Интеграциялар</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Интеграция кушиш</li>
+            <ol class="breadcrumb bg-light p-2 px-4">
+                <li class="breadcrumb-item"><a href="#">Интеграция</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Интеграция қўшиш</li>
             </ol>
         </nav>
 
@@ -12,9 +12,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Интеграция кушиш</h6>
+                        <h6 class="card-title border-bottom pb-2">Интеграция қўшиш</h6>
                         <form class="forms-sample" method="POST" action="/integration">
                             @csrf
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="INT01">Интеграция тури</label>
+                                    <select class="form-control @error('INT01') is-invalid @enderror" id="INT01" name="INT01">
+                                        <option selected="" disabled="" value="0">Интеграция турини танланг</option>
+                                        <option value="1">Қабул килувчи интеграция</option>
+                                        <option value="2">Юборувчи интеграция</option>
+                                    </select>
+                                    @error('INT01')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="INT02">TYPE_ID</label>
+                                    <input type="text" class="form-control @error('INT02') is-invalid @enderror" id="INT02" name="INT02" autocomplete="off" value="{{ old('INT02') }}" maxlength="5">
+                                    @error('INT02')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="NAME">Ташкилот номи</label>
@@ -24,43 +44,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="TITLE">Маълумот тури</label>
-                                    <input type="text" class="form-control @error('TITLE') is-invalid @enderror" id="TITLE" name="TITLE" autocomplete="off" value="{{ old('TITLE') }}">
-                                    @error('TITLE')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="DATE01">Охирги янгиланган сана</label>
-                                    <div class="input-group date datepicker" id="datePickerExample">
-                                        <input value="{{ old('DATE01') }}" name="DATE01" id="DATE01" type="text" class="form-control @error('DATE01') is-invalid @enderror"><span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                                    </div>
-                                    @error('DATE01')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="DATE02">Охирги янгиланган сана</label>
-                                    <div class="input-group date datepicker" id="datePickerExample2">
-                                        <input value="{{ old('DATE02') }}" name="DATE02" id="DATE02" type="text" class="form-control @error('DATE02') is-invalid @enderror"><span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                                    </div>
-                                    @error('DATE02')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="INT01">Янгиланиш даври</label>
-                                    <input type="text" class="form-control @error('INT01') is-invalid @enderror" id="INT01" name="INT01" autocomplete="off" value="{{ old('INT01') }}">
-                                    @error('INT01')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="VAL01">Уланиш нуктаси</label>
+                                    <label for="VAL01">Маълумот тури</label>
                                     <input type="text" class="form-control @error('VAL01') is-invalid @enderror" id="VAL01" name="VAL01" autocomplete="off" value="{{ old('VAL01') }}">
                                     @error('VAL01')
                                     <span class="text-danger">{{ $message }}</span>
@@ -68,15 +52,51 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="form-group col-md-6">
+                                    <label for="INT03">Янгиланиш даври</label>
+                                    <select class="form-control @error('INT03') is-invalid @enderror" id="INT03" name="INT03">
+                                        <option selected="" disabled="" value="0">Янгиланиш даврини танланг</option>
+                                        <option value="1">Кунлик</option>
+                                        <option value="7">Ҳафталик</option>
+                                        <option value="30">Ойлик</option>
+                                        <option value="90">Чораклик</option>
+                                        <option value="360">Йиллик</option>
+                                        <option value="0">Онлайн(GET сўров асосида)</option>
+                                    </select>
+                                    @error('INT03')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="VAL02">Уланиш нуктаси</label>
+                                    <input type="text" class="form-control @error('VAL02') is-invalid @enderror" id="VAL02" name="VAL02" autocomplete="off" value="{{ old('VAL02') }}">
+                                    @error('VAL02')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="LONG01">Изох</label>
-                                        <textarea class="form-control" id="LONG01" name="LONG01" rows="5"></textarea>
+                                        <label for="LONG01">Жойлашув жойи</label>
+                                        <textarea class="form-control @error('LONG01') is-invalid @enderror" id="LONG01" name="LONG01" rows="5"></textarea>
+                                        @error('LONG01')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="LONG02">Изоҳ</label>
+                                        <textarea class="form-control @error('LONG02') is-invalid @enderror" id="LONG02" name="LONG02" rows="5"></textarea>
+                                        @error('LONG02')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mr-2">Кушиш</button>
-                            <button class="btn btn-light">Бекор килиш</button>
+                            <button type="submit" class="btn btn-primary mr-2">Кўшиш</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-light">Орқага қайтиш</a>
                         </form>
                     </div>
                 </div>

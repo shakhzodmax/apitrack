@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
+
     <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Интеграциялар</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Интеграция кушиш</li>
+        <ol class="breadcrumb bg-light p-2 px-4">
+            <li class="breadcrumb-item"><a href="#">Интеграция</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Интеграция ўзратириш</li>
         </ol>
     </nav>
 
@@ -11,10 +12,30 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Интеграция ўзгартириш <span class="text-muted">ID: {{ $integration->Id }}</span></h6>
-                    <form class="forms-sample" method="POST" action="/integration/{{ $integration->Id }}">
-                        @csrf
+                    <h6 class="card-title border-bottom pb-2">Интеграция ўзгартириш <span class="text-muted">ID:{{ $integration->ID }}</span></h6>
+                    <form class="forms-sample" method="POST" action="/integration/{{ $integration->ID }}">
                         @method('PUT')
+                        @csrf
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="INT01">Интеграция тури</label>
+                                <select class="form-control @error('INT01') is-invalid @enderror" id="INT01" name="INT01">
+                                    <option disabled="">Интеграция турини танланг</option>
+                                    <option value="1" {{ old('INT01') == 1 ? 'selected' : '' }}>Қабул килувчи интеграция</option>
+                                    <option value="2" {{ old('INT01') == 1 ? 'selected' : '' }}>Юборувчи интеграция</option>
+                                </select>
+                                @error('INT01')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="INT02">TYPE_ID</label>
+                                <input type="text" class="form-control @error('INT02') is-invalid @enderror" id="INT02" name="INT02" autocomplete="off" value="{{ $integration->TYPE_ID }}" maxlength="5">
+                                @error('INT02')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="NAME">Ташкилот номи</label>
@@ -24,51 +45,59 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="TITLE">Маълумот тури</label>
-                                <input type="text" class="form-control @error('TITLE') is-invalid @enderror" id="TITLE" name="TITLE" autocomplete="off" value="{{ $integration->TITLE }}">
-                                @error('TITLE')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="DATE01">Охирги янгиланган сана</label>
-                                <div class="input-group date datepicker" id="datePickerExample2">
-                                    <input value="{{ $integration->DATE01 }}" name="DATE01" id="DATE01" type="text" class="form-control @error('DATE01') is-invalid @enderror"><span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                                </div>
-                                @error('DATE02')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="DATE02">Охирги янгиланган сана</label>
-                                <div class="input-group date datepicker" id="datePickerExample2">
-                                    <input value="{{ $integration->DATE02 }}" name="DATE02" id="DATE02" type="text" class="form-control @error('DATE02') is-invalid @enderror"><span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                                </div>
-                                @error('DATE02')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="INT01">Янгиланиш даври</label>
-                                <input type="text" class="form-control @error('INT01') is-invalid @enderror" id="INT01" name="INT01" autocomplete="off" value="{{ $integration->INT01 }}">
-                                @error('INT01')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="VAL01">Уланиш нуктаси</label>
+                                <label for="VAL01">Маълумот тури</label>
                                 <input type="text" class="form-control @error('VAL01') is-invalid @enderror" id="VAL01" name="VAL01" autocomplete="off" value="{{ $integration->VAL01 }}">
                                 @error('VAL01')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Ўзгартириш</button>
-                        <button class="btn btn-light">Бекор қилиш</button>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="INT03">Янгиланиш даври</label>
+                                <select class="form-control @error('INT03') is-invalid @enderror" id="INT03" name="INT03">
+                                    <option disabled="">Янгиланиш даврини танланг</option>
+                                    <option value="1" {{ old('INT03') == 1 ? 'selected' : '' }}>Кунлик</option>
+                                    <option value="7" {{ old('INT03') == 1 ? 'selected' : '' }}>Ҳафталик</option>
+                                    <option value="30" {{ old('INT03') == 1 ? 'selected' : '' }}>Ойлик</option>
+                                    <option value="90" {{ old('INT03') == 1 ? 'selected' : '' }}>Чораклик</option>
+                                    <option value="360" {{ old('INT03') == 1 ? 'selected' : '' }}>Йиллик</option>
+                                    <option value="0" {{ old('INT03') == 1 ? 'selected' : '' }}>Онлайн(GET сўров асосида)</option>
+                                </select>
+                                @error('INT03')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="VAL02">Уланиш нуктаси</label>
+                                <input type="text" class="form-control @error('VAL02') is-invalid @enderror" id="VAL02" name="VAL02" autocomplete="off" value="{{ $integration->VAL02 }}">
+                                @error('VAL02')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="LONG01">Жойлашув жойи</label>
+                                    <textarea class="form-control @error('LONG01') is-invalid @enderror" id="LONG01" name="LONG01" rows="5">{{ $integration->LONG01 }}</textarea>
+                                    @error('LONG01')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="LONG02">Изоҳ</label>
+                                    <textarea class="form-control @error('LONG02') is-invalid @enderror" id="LONG02" name="LONG02" rows="5">{{ $integration->LONG02 }}</textarea>
+                                    @error('LONG02')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Кўшиш</button>
+                        <a href="{{ url()->previous() }}" class="btn btn-light">Орқага қайтиш</a>
                     </form>
                 </div>
             </div>

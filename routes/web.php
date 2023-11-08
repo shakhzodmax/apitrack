@@ -16,5 +16,7 @@ Route::get('/', 'AuthController@index');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 
-Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
-Route::resource('integration', 'IntegrationController');
+Route::middleware(['session.auth'])->group(function () {
+    Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+    Route::resource('integration', 'IntegrationController');
+});

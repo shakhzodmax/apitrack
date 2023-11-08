@@ -15,7 +15,7 @@
                         </div>
                         <div class="info text-center">
                             <p class="name font-weight-bold mb-0 text-wrap">{{ session()->get('fullname') }}</p>
-                            <p class="email text-muted mb-3">{{ session()->get('username') }}</p>
+                            <p class="text-muted mb-3">{{ session()->get('post_name') }}</p>
                         </div>
                     </div>
                     <div class="dropdown-body">

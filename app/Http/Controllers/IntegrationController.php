@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integration;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,13 +34,15 @@ class IntegrationController extends Controller
     {
         $inputs = $request->validate(Integration::$createRules, Integration::$createRulesMessages, Integration::$createRulesAttributes);
 
-        $insertIntegration = DB::table('tblintegrations')->insertGetId(array(
-            'NAME'      => $inputs['NAME'],
-            'TITLE'      => $inputs['TITLE'],
-            'DATE01'      => $inputs['DATE01'],
-            'DATE02'      => $inputs['DATE02'],
-            'INT01'      => $inputs['INT01'],
-            'VAL01'      => $inputs['VAL01']
+        $insertIntegration = DB::connection('local')->table('tblintegrations')->insertGetId(array(
+            'INT01' => $inputs['INT01'],
+            'INT02' => $inputs['INT02'],
+            'NAME' => $inputs['NAME'],
+            'VAL01' => $inputs['VAL01'],
+            'INT03' => $inputs['INT03'],
+            'VAL02' => $inputs['VAL02'],
+            'LONG01' => $inputs['LONG01'],
+            'LONG02' => $inputs['LONG02'],
         ));
 
         if($insertIntegration) {
@@ -62,10 +65,8 @@ class IntegrationController extends Controller
     public function edit(string $id)
     {
         $integration = DB::table('tblintegrations')->where('id', $id)->first();
-        $originalDate = $integration->DATE01;
-        $newDate = date("Y-m-d", strtotime($originalDate));
 
-        return view('integration.edit_integration')->with('integration', $integration)->with('newDate', $newDate);
+        return view('integration.edit_integration')->with('integration', $integration);
     }
 
     /**

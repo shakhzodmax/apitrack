@@ -7,32 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 class Integration extends Model
 {
     public static $columns = [
-        'NAME',
-        'TITLE',
-        'DATE01',
-        'DATE02',
         'INT01',
+        'INT02',
+        'NAME',
         'VAL01',
+        'INT03',
+        'VAL02',
+        'LONG01',
+        'LONG02',
     ];
     public static $createRules = [
-        'NAME' => 'required',
-        'TITLE' => 'required',
-        'DATE01' => 'required',
-        'DATE02' => 'required',
         'INT01' => 'required',
+        'INT02' => 'required',
+        'NAME' => 'required',
         'VAL01' => 'required',
+        'INT03' => 'required',
+        'VAL02' => 'required',
+        'LONG01' => 'required',
+        'LONG02' => 'required',
     ];
 
     public static $createRulesMessages = [
-        'required' => ':attribute тулдирилмаган',
+        'required' => ':attribute тўлдирилмаган',
     ];
 
     public static $createRulesAttributes = [
+        'INT01' => 'Интеграция тури',
+        'INT02' => 'TYPE ID',
         'NAME' => 'Ташкилот номи',
-        'TITLE' => 'Маълумот тури',
-        'DATE01' => 'Охирги янгиланиш санаси',
-        'DATE02' => 'Кейинги янгиланиш санаси',
-        'INT01' => 'Янгиланиш даври',
-        'VAL01' => 'Уланиш нуктаси',
+        'VAL01' => 'Маълумот тури',
+        'INT03' => 'Янгиланиш даври',
+        'VAL02' => 'Уланиш нуқтаси',
+        'LONG01' => 'Жойлашув жойи',
+        'LONG02' => 'Изоҳ',
     ];
 }

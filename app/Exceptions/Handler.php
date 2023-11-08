@@ -27,4 +27,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    function render($request, Throwable $e)
+    {
+        if ($this->isHttpException($e)) {
+            if ($e->getStatusCode() == 404) {
+                return response()->view('errors.404', [], 404);
+            }
+            if ($e->getStatusCode() == 500) {
+                return response()->view('errors.500', [], 500);
+            }
+        }
+        return parent::render($request, $e);
+    }
 }

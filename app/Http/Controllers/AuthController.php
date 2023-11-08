@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $inputs = $request->validate(Authorization::$createRules, Authorization::$createRulesMessages, Authorization::$createRulesAttributes);
 
-        $user = DB::table('tblusers')
+        $user = DB::connection('dbproject')->table('tblusers')
             ->where('username', $inputs['username'])
             ->where('password', $inputs['password'])
             ->where('department_id', 84)
@@ -27,7 +27,8 @@ class AuthController extends Controller
             ->first();
 
         if (!empty($user)) {
-            session(['fullname' => $user->fullname, 'username' => $user->username, 'department_id' => $user->department_id, 'post_id' => $user->post_id]);
+            $post_name = Authorization::assignRole($user->post_id);
+            session(['fullname' => $user->fullname, 'username' => $user->username, 'department_id' => $user->department_id, 'post_id' => $user->post_id, 'auth_state' => 1, 'post_name' => $post_name]);
             return redirect()->intended('dashboard');
         }
 
