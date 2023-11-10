@@ -204,7 +204,7 @@ $(function() {
       },
       yaxis: {
         show: true,
-        color: 'rgba(0,0,0,0.06)',       
+        color: 'rgba(0,0,0,0.06)',
         ticks: [[0, '-100%'], [10, '-75%'], [20, '-50%'], [30, '-25%'], [40, '0%'], [50, '+25%'],[60, '+50%'], [70, '+75%'], [80, '+100%']],
         tickColor: gridLineColor,
         min: 0,
@@ -219,7 +219,7 @@ $(function() {
         show: true,
         color: 'rgba(0,0,0,0.1)',
         ticks: [[0, '1 Jan'], [20, '2 Jan'], [40, '3 Jan'], [60, '4 Jan'], [80, '5 Jan'], [100, '6 Jan'], [120, '7 Jan'], [140, '8 Jan']],
-        tickColor: gridLineColor,      
+        tickColor: gridLineColor,
         font: {
           size: 13,
           color: colors.muted
@@ -231,7 +231,7 @@ $(function() {
 // Flot chart1 end
 
 // Flot chart2 start
-  
+
   var flotChart2Data = [
     [0,49.331065063219285],
     [1,48.79814898366035],
@@ -387,7 +387,7 @@ $(function() {
         show: true,
         color: 'rgba(0,0,0,0.1)',
         ticks: [[0, 'Jan'], [20, 'Feb'], [40, 'Mar'], [60, 'Apr'], [80, 'May'], [100, 'June'], [120, 'July'], [140, 'Aug']],
-        tickColor: gridLineColor,      
+        tickColor: gridLineColor,
         font: {
           size: 13,
           color: colors.muted
@@ -554,19 +554,19 @@ $(function() {
       step: function(state, circle) {
         circle.path.setAttribute('stroke', state.color);
         circle.path.setAttribute('stroke-width', state.width);
-    
+
         var value = Math.round(circle.value() * 100);
         if (value === 0) {
           circle.setText('');
         } else {
           circle.setText(value + '%');
         }
-    
+
       }
     });
     bar.text.style.fontFamily = "'Overpass', sans-serif;";
     bar.text.style.fontSize = '3rem';
-    
+
     bar.animate(.78);
   }
   // Progressgar1 start

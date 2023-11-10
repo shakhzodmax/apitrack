@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Integration extends Model
 {
@@ -41,4 +42,9 @@ class Integration extends Model
         'LONG01' => 'Жойлашув жойи',
         'LONG02' => 'Изоҳ',
     ];
+
+    public static function getSequence($typeid)
+    {
+        return DB::connection('oracle')->select("SELECT GKK.{$typeid}.NEXTVAL AS sequence_id FROM DUAL")[0]->sequence_id;
+    }
 }

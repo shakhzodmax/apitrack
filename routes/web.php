@@ -18,5 +18,8 @@ Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::middleware(['session.auth'])->group(function () {
     Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+    Route::get('/integration/log', 'IntegrationController@logIntegration')->name('log-integration');
+    Route::get('/integration/typget', 'IntegrationController@integrationGet')->name('get-integration');
+    Route::get('/integration/typpost', 'IntegrationController@integrationPost')->name('post-integration');
     Route::resource('integration', 'IntegrationController');
 });

@@ -3,7 +3,7 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb bg-light p-2 px-4">
-                <li class="breadcrumb-item"><a href="#">Интеграция</a></li>
+                <li class="breadcrumb-item"><a href="/integration">Интеграция</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Интеграция қўшиш</li>
             </ol>
         </nav>
@@ -56,12 +56,9 @@
                                     <label for="INT03">Янгиланиш даври</label>
                                     <select class="form-control @error('INT03') is-invalid @enderror" id="INT03" name="INT03">
                                         <option selected="" disabled="" value="0">Янгиланиш даврини танланг</option>
-                                        <option value="1">Кунлик</option>
-                                        <option value="7">Ҳафталик</option>
-                                        <option value="30">Ойлик</option>
-                                        <option value="90">Чораклик</option>
-                                        <option value="360">Йиллик</option>
-                                        <option value="0">Онлайн(GET сўров асосида)</option>
+                                        @foreach($periods as $period)
+                                            <option value="{{ $period->int01 }}">{{ $period->name_uz }}</option>
+                                        @endforeach
                                     </select>
                                     @error('INT03')
                                     <span class="text-danger">{{ $message }}</span>

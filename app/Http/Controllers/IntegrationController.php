@@ -3,20 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integration;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\Oci8\Schema;
 
 class IntegrationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function integrationGet()
     {
-        $integrations = DB::select('select * from tblintegrations');
-        return view('integration.index_integration')->with('integrations', $integrations);
+        $integrations = DB::connection('oracle')
+            ->table('GKK.TBLDATA')
+            ->select('GKK.TBLDATA.id', 'GKK.TBLDATA.name', 'GKK.TBLDATA.update_date', 'GKK.TBLDATA.val01', 'GKK.TBLLISTS.name_uz')
+            ->leftJoin('GKK.TBLLISTS', 'GKK.TBLLISTS.int01', '=', 'GKK.TBLDATA.int03')
+            ->where('GKK.TBLLISTS.TYPE_ID', 400)
+            ->where('GKK.TBLDATA.ASTATE', 1)
+            ->where('GKK.TBLDATA.TYPE_ID', 1200)
+            ->where('GKK.TBLDATA.int01', 1)
+            ->get();
+        return view('integration.get_integration')->with('integrations', $integrations);
+    }
+
+    public function integrationPost()
+    {
+        $integrations = DB::connection('oracle')
+            ->table('GKK.TBLDATA')
+            ->select('GKK.TBLDATA.id', 'GKK.TBLDATA.name', 'GKK.TBLDATA.update_date', 'GKK.TBLDATA.val01', 'GKK.TBLLISTS.name_uz')
+            ->leftJoin('GKK.TBLLISTS', 'GKK.TBLLISTS.int01', '=', 'GKK.TBLDATA.int03')
+            ->where('GKK.TBLLISTS.TYPE_ID', 400)
+            ->where('GKK.TBLDATA.ASTATE', 1)
+            ->where('GKK.TBLDATA.TYPE_ID', 1200)
+            ->where('GKK.TBLDATA.int01', 2)
+            ->get();
+        return view('integration.post_integration')->with('integrations', $integrations);
+    }
+
+    public function logIntegration()
+    {
+        $integrations = DB::connection('oracle')->table('GKK.TBLDATA')->select('id', 'name', 'val05', 'create_date', 'update_date', 'astate', 'int01')->where('TYPE_ID', 1200)->orderBy('update_date', 'desc')->get();
+        return view('integration.log_integration')->with('integrations', $integrations);
     }
 
     /**
@@ -24,7 +48,9 @@ class IntegrationController extends Controller
      */
     public function create()
     {
-        return view('integration.create_integration');
+        $periods = DB::connection('oracle')->table('GKK.TBLLISTS')->select('*')->where('ASTATE', 1)->where('TYPE_ID', 400)->get();
+
+        return view('integration.create_integration')->with('periods', $periods);
     }
 
     /**
@@ -34,19 +60,28 @@ class IntegrationController extends Controller
     {
         $inputs = $request->validate(Integration::$createRules, Integration::$createRulesMessages, Integration::$createRulesAttributes);
 
-        $insertIntegration = DB::connection('local')->table('tblintegrations')->insertGetId(array(
+        $insertIntegration = DB::connection('oracle')->table('GKK.TBLDATA')->insert([
+            'TYPE_ID' => 1200,
+            'ID' => Integration::getSequence('SQ_TBLDATA1200'),
+            'NAME' => $inputs['NAME'],
             'INT01' => $inputs['INT01'],
             'INT02' => $inputs['INT02'],
-            'NAME' => $inputs['NAME'],
             'VAL01' => $inputs['VAL01'],
             'INT03' => $inputs['INT03'],
             'VAL02' => $inputs['VAL02'],
             'LONG01' => $inputs['LONG01'],
             'LONG02' => $inputs['LONG02'],
-        ));
+            'VAL05' => session()->get('fullname'),
+            'DATE05' => date('Y-m-d H:i:s')
+        ]);
 
-        if($insertIntegration) {
-            return redirect('/integration')->with('success', 'Интеграция кушилди!');
+        $type = $inputs['INT01'];
+
+        if ($insertIntegration) {
+            if ($type == 1) {
+                return redirect('/integration/typget')->with('success', 'Интеграция кушилди!');
+            }
+            return redirect('/integration/typpost')->with('success', 'Интеграция кушилди!');
         }
         return redirect()->back()->with('error', 'Кушишда хатолик!')->withInput();
     }
@@ -56,7 +91,7 @@ class IntegrationController extends Controller
      */
     public function show(string $id)
     {
-        return view('integration.show_integration');
+        //
     }
 
     /**
@@ -64,9 +99,10 @@ class IntegrationController extends Controller
      */
     public function edit(string $id)
     {
-        $integration = DB::table('tblintegrations')->where('id', $id)->first();
+        $integration = DB::connection('oracle')->table('GKK.TBLDATA')->where('id', $id)->where('type_id', 1200)->first();
+        $periods = DB::connection('oracle')->table('GKK.TBLLISTS')->select('*')->where('ASTATE', 1)->where('TYPE_ID', 400)->get();
 
-        return view('integration.edit_integration')->with('integration', $integration);
+        return view('integration.edit_integration')->with('integration', $integration)->with('periods', $periods);
     }
 
     /**
@@ -76,21 +112,31 @@ class IntegrationController extends Controller
     {
         $inputs = $request->validate(Integration::$createRules, Integration::$createRulesMessages, Integration::$createRulesAttributes);
 
-        $updateIntegration = DB::table('tblintegrations')
-            ->where('id', $id)
+        $updateIntegration = DB::connection('oracle')
+            ->table('GKK.TBLDATA')
+            ->where('TYPE_ID', 1200)
+            ->where('ID', $id)
             ->update([
-                'NAME'   => $inputs['NAME'],
-                'TITLE'  => $inputs['TITLE'],
-                'DATE01' => $inputs['DATE01'],
-                'DATE02' => $inputs['DATE02'],
-                'INT01'  => $inputs['INT01'],
-                'VAL01'  => $inputs['VAL01']
+                'NAME' => $inputs['NAME'],
+                'INT01' => $inputs['INT01'],
+                'INT02' => $inputs['INT02'],
+                'VAL01' => $inputs['VAL01'],
+                'INT03' => $inputs['INT03'],
+                'VAL02' => $inputs['VAL02'],
+                'LONG01' => $inputs['LONG01'],
+                'LONG02' => $inputs['LONG02'],
+                'DATE05' => now()
             ]);
 
-        if($updateIntegration) {
-            return redirect('/integration')->with('success', 'Интеграция ўзгартирилди!');
+        $type = $inputs['INT01'];
+
+        if ($updateIntegration) {
+            if ($type == 1) {
+                return redirect('/integration/typget')->with('success', 'Интеграция янгиланди!');
+            }
+            return redirect('/integration/typpost')->with('success', 'Интеграция янгиланди!');
         }
-        return redirect()->back()->with('error', 'Ўзгартиришда хатолик!')->withInput();
+        return redirect()->back()->with('error', 'Кушишда хатолик!');
     }
 
     /**
@@ -98,6 +144,23 @@ class IntegrationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleteIntegration = DB::connection('oracle')
+            ->table('GKK.TBLDATA')
+            ->where('TYPE_ID', 1200)
+            ->where('ID', $id)
+            ->update([
+                'ASTATE' => 0
+            ]);
+
+        $integration = DB::connection('oracle')->table('GKK.TBLDATA')->where('id', $id)->where('type_id', 1200)->first();
+        $type = $integration->int01;
+
+        if ($deleteIntegration) {
+            if ($type == 1) {
+                return redirect('/integration/typget')->with('success', 'Интеграция ўчирилди!');
+            }
+            return redirect('/integration/typpost')->with('success', 'Интеграция ўчирилди!');
+        }
+        return redirect()->back()->with('error', 'Ўчиришда хатолик хатолик!');
     }
 }

@@ -13,7 +13,7 @@
         <ul class="nav">
             <li class="nav-item nav-category">Асосий</li>
             <li class="nav-item">
-            <a href="/" class="nav-link">
+            <a href="/dashboard" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Бош сахифа</span>
                 </a>
@@ -29,7 +29,16 @@
                 <div class="collapse" id="integration">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="/integration" class="nav-link">Жадвал</a>
+                            <a href="/integration/create" class="nav-link">Кўшиш</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('get-integration') }}" class="nav-link">Қабул қилувчи (GET)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('post-integration') }}" class="nav-link">Юкловчи (POST)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('log-integration') }}" class="nav-link">Журнал</a>
                         </li>
                     </ul>
                 </div>
