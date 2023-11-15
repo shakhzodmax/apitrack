@@ -1,9 +1,10 @@
+@php use App\Models\Integration; @endphp
 @extends('layouts.app')
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb bg-light p-2 px-4">
-            <li class="breadcrumb-item"><a href="/dashboard">Бош сахифа</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Юкловчи қилувчи интеграциялар жадвали</li>
+            <li class="breadcrumb-item"><a href="/dashboard">Bosh sahifa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Qabul qiluvchi integratsiyalar jadvali</li>
         </ol>
     </nav>
 
@@ -12,19 +13,19 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header" style="margin-bottom: 0px !important;">
-                    <h6 class="card-title text-muted" style="margin-bottom: 0px;">Юкловчи интеграциялар жадвали</h6>
+                    <h6 class="card-title text-muted" style="margin-bottom: 0px;">Qabul qiluvchi integratsiyalar</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table table-hover border rounded">
+                        <table id="dataTableExample" class="table table-bordered table-hover border rounded">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Ташкилот номи</th>
-                                <th>Холати</th>
-                                <th>Маълумот тури</th>
-                                <th>Охирги янгиланиш санаси</th>
-                                <th>Янгиланиш даври</th>
+                                <th>Tashkilot nomi</th>
+                                <th>Ma'lumot turi</th>
+                                <th>Yangilanish davri</th>
+                                <th>Oxirgi yangilanish sanasi</th>
+                                <th>Holati</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -37,15 +38,12 @@
                                             {{ $integration->name }}
                                         </a>
                                     </td>
-                                    <td><span class="badge badge-success">Янгиланган</span></td>
                                     <td>{{ $integration->val01 }}</td>
-                                    <td>{{ $integration->update_date }}</td>
                                     <td>{{ $integration->name_uz }}</td>
+                                    <td>{{ Integration::formatDate(Integration::getLastUpdateDate($integration->int02)) }}</td>
+                                    <td class="text-center">@if(Integration::checkStatusOfAPIs($integration->int02)) <span class="badge badge-success w-65 text-uppercase">Yangilangan</span> @else <span class="badge badge-danger w-65 text-uppercase">Yangilanmagan</span> @endif</td>
                                     <td class="border-left">
                                         <div class="d-flex justify-content-md-around">
-                                            <button type="button" class="btn btn-primary btn-icon">
-                                                <i data-feather="eye"></i>
-                                            </button>
                                             <a href="{{'/integration/'.$integration->id.'/edit'}}">
                                                 <button type="button" class="btn btn-facebook btn-icon">
                                                     <i data-feather="edit"></i>
@@ -62,7 +60,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <td>Маълумот мавжуд эмас</td>
+                                <td colspan="7">Ma'lumot mavjud emas</td>
                             @endforelse
                             </tbody>
                         </table>

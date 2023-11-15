@@ -9,7 +9,7 @@ $(function() {
       ],
       "iDisplayLength": 10,
       "language": {
-          url: "../assets/json/uz-cr.json",
+          url: "../assets/json/uz.json",
       }
     });
     $('#dataTableExample').each(function() {

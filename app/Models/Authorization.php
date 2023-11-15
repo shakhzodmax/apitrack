@@ -15,14 +15,14 @@ class Authorization extends Model
         'password' => 'required'
     ];
     public static $createRulesMessages = [
-        'required' => ':attribute тўлдирилмаган',
+        'required' => ':attribute to\'ldirilmagan',
     ];
     public static $createRulesAttributes = [
-        'username' => 'Логин',
-        'password' => 'Пароль'
+        'username' => 'Login',
+        'password' => 'Parol'
     ];
     public static function assignRole(int $id){
-        $roles = ['7' => 'Департамент бошлиғи', '8' => 'Департамент бошлиғи ўринбосари', '11' => 'Бош мутахассис', '12' => 'Етакчи мутахассис', '19' => '1-тоифали техник'];
+        $roles = ['7' => 'Departament boshlig\'i', '8' => 'Departament boshlig\'i o\'rinbosari', '11' => 'Bosh mutaxassis', '12' => 'Yetakchi mutaxassis', '19' => '1-toifali texnik'];
         return $roles[$id];
     }
 }

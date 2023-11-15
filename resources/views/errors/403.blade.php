@@ -7,9 +7,9 @@
                     <div class="col-md-8 col-xl-6 mx-auto d-flex flex-column align-items-center">
                         <img src="../../../assets/images/404.svg" class="img-fluid mb-2" alt="404">
                         <h1 class="font-weight-bold mb-22 mt-2 tx-80 text-muted">403</h1>
-                        <h4 class="mb-2">Тизимга кирилмаган</h4>
-                        <h6 class="text-muted mb-3 text-center">Бу саҳифагани кўриш учун тизимга кириш керак</h6>
-                        <a href="{{ url()->previous() }}" class="btn btn-primary">Орқага қайтиш</a>
+                        <h4 class="mb-2">Tizimga kirilmagan</h4>
+                        <h6 class="text-muted mb-3 text-center">Bu sahifani ko'rish uchun tizimga kirish kerak</h6>
+                        <a href="{{ url()->previous() }}" class="btn btn-primary">Orqaga qaytish</a>
                     </div>
                 </div>
 

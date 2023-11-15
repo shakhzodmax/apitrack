@@ -23,13 +23,13 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i data-feather="user"></i>
-                                    <span>Профиль</span>
+                                    <span>Profil</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link">
                                     <i data-feather="log-out"></i>
-                                    <span>Тизимдан чикиш</span>
+                                    <span>Tizimdan chiqish</span>
                                 </a>
                             </li>
                         </ul>

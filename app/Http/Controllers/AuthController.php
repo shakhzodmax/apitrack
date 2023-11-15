@@ -32,7 +32,7 @@ class AuthController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return redirect("/")->with('error', 'Логин ёки пароль хато киритилган!')->withInput();
+        return redirect("/")->with('error', 'Login yoki parol xato kiritilgan!')->withInput();
     }
 
     public function logout() {

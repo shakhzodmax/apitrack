@@ -24,21 +24,21 @@
                                         <form class="forms-sample" method="POST" action="{{ route('login') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="username">Логин</label>
+                                                <label for="username">Login</label>
                                                 <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ old('username') }}">
                                                 @error('username')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Пароль</label>
+                                                <label for="password">Parol</label>
                                                 <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" autocomplete="current-password" value="{{ old('password') }}">
                                                 @error('password')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="mt-3">
-                                                <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white">Кириш</button>
+                                                <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white">Tizimga kirish</button>
                                             </div>
                                         </form>
                                     </div>
