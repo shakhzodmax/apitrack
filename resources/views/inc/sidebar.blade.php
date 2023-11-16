@@ -34,10 +34,10 @@
                             <a href="{{ route('integration.create') }}" class="nav-link">Yangi qo'shish</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('get-integration') }}" class="nav-link">Qabul qiluvchi (GET)</a>
+                            <a href="{{ route('get-integration') }}" class="nav-link">Qabul qiluvchi</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('post-integration') }}" class="nav-link">Yuklovchi (POST)</a>
+                            <a href="{{ route('post-integration') }}" class="nav-link">Yuboruvchi</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('log-integration') }}" class="nav-link">Jurnal</a>

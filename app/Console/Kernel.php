@@ -18,30 +18,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command(ApiCheckEveryDay::class)->cron('0 12 * * *');
-        $schedule->command(ApiCheckEveryMonth::class)->cron('0 0 1 * *');
-        $schedule->command(ApiCheckEveryQuarter::class)->cron('0 0 1 3,6,9,12 *');
-        $schedule->command(ApiCheckEveryYear::class)->cron('0 0 31 12 *');
-        $schedule->command(ApiCheckRealTime::class)->cron('* * * * * *');
-        $schedule->command(ApiCheckForce::class);
-
+//        $schedule->command(ApiCheckEveryDay::class);        // Har kunlik
+//        $schedule->command(ApiCheckEveryMonth::class);      // Har oylik
+//        $schedule->command(ApiCheckEveryQuarter::class);    // Har choraklik
+//        $schedule->command(ApiCheckEveryYear::class);       // Har yillik
+//        $schedule->command(ApiCheckRealTime::class);        // Get so'rov asosida
+        $schedule->command(ApiCheckForce::class);           // Muddatidan oldin
     }
-
-    protected $commands = [
-        Commands\ApiCheckEveryDay::class,
-        Commands\ApiCheckEveryMonth::class,
-        Commands\ApiCheckEveryQuarter::class,
-        Commands\ApiCheckEveryYear::class,
-        Commands\ApiCheckRealTime::class,
-        Commands\ApiCheckForce::class,
-    ];
 
     /**
      * Register the commands for the application.
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

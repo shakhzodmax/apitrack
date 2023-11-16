@@ -12,8 +12,9 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-header" style="margin-bottom: 0px !important;">
+                <div class="card-header d-flex justify-content-between align-items-center" style="margin-bottom: 0px !important;">
                     <h6 class="card-title text-muted" style="margin-bottom: 0px;">Qabul qiluvchi integratsiyalar</h6>
+                    <a href="{{ route('send-statuses') }}" class="btn btn-sm btn-dark py-1 px-2"><i style="width: 15px;" data-feather="send"></i> Telegram botga yuborish</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -24,8 +25,8 @@
                                 <th>Tashkilot nomi</th>
                                 <th>Ma'lumot turi</th>
                                 <th>Yangilanish davri</th>
-                                <th>Holati</th>
                                 <th>Oxirgi yangilanish sanasi</th>
+                                <th>Holati</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -34,37 +35,25 @@
                                 <tr>
                                     <td class="border-right">{{ $integration->id }}</td>
                                     <td>
-                                        <a href="#" class="text-primary" style="padding:0px;">
+                                        <a href="#" class="nav-link" style="padding:0px;">
                                             {{ $integration->name }}
                                         </a>
                                     </td>
                                     <td>{{ $integration->val01 }}</td>
                                     <td>{{ $integration->name_uz }}</td>
-                                    <td class="text-center">
-                                        @php
-                                            $status = Integration::checkStatusOfAPIs($integration->int02);
-                                        @endphp
-
-                                        @if($status === 'Yangilangan')
-                                            <span class="badge badge-success w-65 text-uppercase">Yangilangan</span>
-                                        @elseif($status === 'GET so\'rov')
-                                            <span class="badge badge-primary w-65 text-uppercase">GET so'rovi</span>
-                                        @else
-                                            <span class="badge badge-danger w-65 text-uppercase">Yangilanmagan</span>
-                                        @endif
-                                    </td>
                                     <td>{{ Integration::formatDate(Integration::getLastUpdateDate($integration->int02)) }}</td>
+                                    <td class="text-center">@if(Integration::checkStatusForTable($integration->int02)) <span class="badge badge-success w-65 text-uppercase">Yangilangan</span> @else <span class="badge badge-danger w-65 text-uppercase">Yangilanmagan</span> @endif</td>
                                     <td class="border-left">
                                         <div class="d-flex justify-content-md-around">
                                             <a href="{{'/integration/'.$integration->id.'/edit'}}">
-                                                <button type="button" class="btn btn-primary btn-icon">
+                                                <button type="button" class="btn btn-facebook btn-icon">
                                                     <i data-feather="edit"></i>
                                                 </button>
                                             </a>
                                             <form action="/integration/{{ $integration->id }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-icon">
+                                                <button type="submit" class="btn btn-dribbble btn-icon">
                                                     <i data-feather="trash"></i>
                                                 </button>
                                             </form>
