@@ -41,7 +41,7 @@ class IntegrationController extends Controller
 
     public function logIntegration()
     {
-        $integrations = DB::connection('oracle')->table('GKK.TBLDATA')->select('id', 'name', 'val05', 'create_date', 'update_date', 'astate', 'int01')->where('TYPE_ID', 1200)->orderBy('update_date', 'desc')->get();
+        $integrations = DB::connection('oracle')->table('GKK.TBLDATA')->select('id', 'name', 'val05', 'date05', 'create_date', 'update_date', 'astate', 'int01')->where('TYPE_ID', 1200)->orderBy('update_date', 'desc')->get();
         return view('integration.log_integration')->with('integrations', $integrations);
     }
 
@@ -83,7 +83,7 @@ class IntegrationController extends Controller
             if ($type == 1) {
                 return redirect('/integration/typget')->with('success', 'Integratsiya qo\'shildi!');
             }
-            return redirect('/integration/typpost')->with('success', 'Integratsiya qo\'shishda xatolik!');
+            return redirect('/integration/typpost')->with('success', 'Integratsiya qo\'shildi!');
         }
         return redirect()->back()->with('error', 'Кушишда хатолик!')->withInput();
     }

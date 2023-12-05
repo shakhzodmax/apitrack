@@ -11,6 +11,11 @@
         @endunless
         <div class="page-content">
             @unless(request()->is('/'))
+                <nav aria-label="breadcrumb" class="mb-2">
+                    {{ Breadcrumbs::render() }}
+                </nav>
+            @endunless
+            @unless(request()->is('/'))
                 @include('inc.message')
             @endunless
             <div>

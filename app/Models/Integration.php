@@ -10,6 +10,18 @@ use stdClass;
 
 class Integration extends Model
 {
+    protected $table = 'tbldata';
+
+    protected $connection = 'oracle';
+
+    public static function findObj($id, $type_id = 1200) {
+        return DB::connection('oracle')
+            ->table('GKK.TBLDATA')
+            ->where('id', $id)
+            ->where('type_id', $type_id)
+            ->first();
+    }
+
     public static $columns = [
         'INT01',
         'INT02',

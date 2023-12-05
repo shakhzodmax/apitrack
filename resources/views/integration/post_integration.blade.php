@@ -1,13 +1,6 @@
 @php use App\Models\Integration; @endphp
 @extends('layouts.app')
 @section('content')
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb bg-light p-2 px-4">
-            <li class="breadcrumb-item"><a href="/dashboard">Bosh sahifa</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Qabul qiluvchi integratsiyalar jadvali</li>
-        </ol>
-    </nav>
-
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
